@@ -1,0 +1,34 @@
+﻿@page "/"
+
+@using Microsoft.AspNetCore.Components.QuickGrid
+@rendermode InteractiveServer
+
+<PageTitle>@Title</PageTitle>
+
+<div class="container">
+    <div class="row heading">
+        <h4>Wide World Importers - Customers</h4>
+    </div>
+    <div class="row">
+        <QuickGrid Id="qGridCustomer" Class="table table-responsive table-bordered table-striped" Items="@FilteredCustomers" Pagination="@pagination">
+            <PropertyColumn Title="Customer Name" Property="@(p => p.CustomerName)" Sortable="true">
+                <ColumnOptions>
+                    <div class="search-box">
+                        <input type="search" autofocus @bind="nameFilter" @bind:event="oninput" placeholder="Customer Name..." />
+                    </div>
+                </ColumnOptions>
+            </PropertyColumn>
+            <PropertyColumn Title="Category" Property="@(p => p.CustomerCategory.CustomerCategoryName)" Sortable="true" />
+            <PropertyColumn Title="Contact Person" Property="@(p => p.PrimaryContactPerson.FullName)" Sortable="true" />
+            <PropertyColumn Title="Deliver City" Property="@(p => p.DeliveryCity.CityName)" Sortable="true" />
+            <PropertyColumn Title="Credit Limit" Property="@(p => p.CreditLimit)" Format="#,##0.00" Sortable="true" />
+            <PropertyColumn Title="Account Opened Date" Property="@(p => p.AccountOpenedDate)" Format="yyyy-MM-dd" Sortable="true" />
+            <PropertyColumn Title="Phone Number" Property="@(p => p.PhoneNumber)" />
+            <PropertyColumn Title="Fax Number" Property="@(p => p.FaxNumber)" />
+            <PropertyColumn Title="Website" Property="@(p => p.WebsiteUrl)" Sortable="true" />
+        </QuickGrid>
+    </div>
+    <div class="row">
+        <Paginator State="@pagination" />
+    </div>
+</div>
